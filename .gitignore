@@ -33,6 +33,7 @@
 
 # Directories
 bin/
+.vscode/
 
 # Code::Blocks files
 *.depend
