@@ -7,15 +7,9 @@ The [Godot](https://godotengine.org/) is a free and open source game engine (see
 
 This project intends to integrate a C++ implementation of Conway's Game of Life with a user interface (UI) built in Godot (using GDScript).
 
-## TODO
-- [ ] API-ise the C++ GoL code
-  - [ ] Make the grid size 'user-defined'
-  - [ ] Unit test + code coverage
-- [ ] Create the Godot infrastructure
-  - [ ] Incorporate C++ GoL into Godot
-  - [ ] Implement the UI
-
 ## Design
 
 The following is the design for the UI and its interactions:
 ![UI design and interactions](/design/UIDesign.jpg)
+
+For a list of requirements click [here](/design/Requirements.md).
