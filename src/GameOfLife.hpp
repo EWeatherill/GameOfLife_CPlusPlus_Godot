@@ -64,7 +64,7 @@ class GameOfLife{
          * @return a boolean if grid state changed (i.e. a cell "died" or
          *         was "born")
          **/
-        bool Evolve();
+        bool Evolve(void);
 
         /**
          * Get the number of evolutons which have occured so far.
@@ -82,6 +82,6 @@ class GameOfLife{
          *         represents the x coordinate/column index.  The innermost 
          *         vector represents the y coordinate/row index.
          **/
-        std::vector<std::vector<bool>> const & const GetGrid() const { 
+        std::vector<std::vector<bool>> GetGrid() const { 
             return grid; }
 };

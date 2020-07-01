@@ -33,6 +33,7 @@
 
 # Directories
 bin/
+build/
 .vscode/
 
 # Code::Blocks files
