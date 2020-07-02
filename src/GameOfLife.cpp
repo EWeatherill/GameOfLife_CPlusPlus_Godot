@@ -4,9 +4,11 @@ using std::vector;
 
 GameOfLife::GameOfLife(int gridWidth, int gridHeight){
 
+    grid = vector{vector{false}};
 }
 
-void GameOfLife::SetCellsToAlive(std::pair<int, int> const cellsCoordinates...){
+void GameOfLife::SetCellsToAlive(
+    vector<std::pair<int, int>> const cellsCoordinates){
     
 }
 

@@ -51,11 +51,12 @@ class GameOfLife{
          * If any of the coordinates fall outside the range of the grid
          * they will be ignored.
          *
-         * @param cellsCoordinates: a variable list of std::pair<int, int>
+         * @param cellsCoordinates: a vector of std::pair<int, int>
          *        representing the coordinates {column, row} of the cell
-         *        to set as "alive" (true)
+         *        to set as "alive"
          **/
-        void SetCellsToAlive(std::pair<int, int> const cellsCoordinates...);
+        void SetCellsToAlive(
+            std::vector<std::pair<int, int>> const cellsCoordinates);
 
         /**
          * Evolve through one generation following Conway's Game of Life
