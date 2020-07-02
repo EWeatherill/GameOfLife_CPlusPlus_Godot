@@ -22,6 +22,13 @@ if(result)
   message(FATAL_ERROR "Build step for googletest failed: ${result}")
 endif()
 
+# The gtest/gtest_main targets carry header search path
+# dependencies automatically when using CMake 2.8.11 or
+# later. Otherwise we have to add them here ourselves.
+if (CMAKE_VERSION VERSION_LESS 2.8.11)
+  include_directories("${gtest_SOURCE_DIR}/include")
+endif()
+
 # Add googletest directly to our build. This defines
 # the gtest and gtest_main targets.
 add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
@@ -30,5 +37,5 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
 
 # Now link against gtest or gtest_main as needed.
 add_executable(${TestsExecutable} ${Sources})
-target_link_libraries(${CMAKE_PROJECT_NAME} gtest_main)
-add_test(NAME ${TestsExecutable} COMMAND ${CMAKE_PROJECT_NAME})
+target_link_libraries(${TestsExecutable} ${CMAKE_PROJECT_NAME} gtest_main)
+add_test(NAME unit_tests COMMAND ${TestsExecutable})

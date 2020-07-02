@@ -4,9 +4,8 @@ project(GameOfLife CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Enable gtest
+# Enable unit testing with gtest
 enable_testing()
 
-include_directories(src)
-
+add_subdirectory(src)
 add_subdirectory(test)

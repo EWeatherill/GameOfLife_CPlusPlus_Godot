@@ -8,4 +8,5 @@ set(Sources
     GameOfLife.cpp
 )
 
-add_library(${CMAKE_PROJECT_NAME} STATIC ${Sources} $(Headers))
+add_library(${CMAKE_PROJECT_NAME} ${Sources})
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
