@@ -1,5 +1,5 @@
 # Based on https://github.com/actions/starter-workflows/pull/47#issuecomment-537846624
-name: CI
+name: C++ CI
 
 on: [push]
 
@@ -14,14 +14,5 @@ jobs:
       run: mkdir build && cd build && cmake -DCMAKE_CXX_FLAGS="-Werror" ..
     - name: build
       run: cmake --build build
-  
-  test:
-    
-    needs: build-ubuntu
-    
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v1
-      - name: unit tests
-        run: cd build && ctest
+    - name: tests
+      run: cd build && ctest
