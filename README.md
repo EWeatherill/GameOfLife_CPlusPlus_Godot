@@ -1,3 +1,5 @@
+![C++ CI](https://github.com/EWeatherill/GameOfLife_CPlusPlus_Godot/workflows/C++%20CI/badge.svg)
+
 # Conway's Game of Life in Godot
 This personal project intends to put newly acquire knowledge (thanks to COVID furlough), of C++17 and the [Godot Engine](https://godotengine.org/), to use.  It's a work-in-progress.  Any feedback is welcome.
 
