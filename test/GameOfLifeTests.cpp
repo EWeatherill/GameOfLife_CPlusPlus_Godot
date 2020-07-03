@@ -9,6 +9,7 @@
 
 #include "GameOfLife.hpp"
 
+using std::pair;
 using std::vector;
 
 # pragma region Helper functions
@@ -45,9 +46,9 @@ TEST(GameOfLifeTests, SetCellsToAlive_SetsValidCells){
     GameOfLife gameOfLife(3, 3);
 
     // Going to set 3 cells to be alive
-    std::pair cellOne(0, 2);
-    std::pair cellTwo(1, 1);
-    std::pair cellThree(2, 0);
+    pair cellOne(0, 2);
+    pair cellTwo(1, 1);
+    pair cellThree(2, 0);
 
     gameOfLife.SetCellsToAlive(vector{cellOne, cellTwo, cellThree});
 
@@ -64,25 +65,104 @@ TEST(GameOfLifeTests, SetCellsToAlive_SetsValidCells){
 }
 
 TEST(GameOfLifeTests, SetCellsToAlive_IgnoresInvalidCellCoords){
-    ASSERT_TRUE(false) << "Not implemented";
+    
+    GameOfLife gameOfLife(1, 1);
+
+    gameOfLife.SetCellsToAlive(vector{pair(2,2)});
+
+    EXPECT_EQ(0, getTotalNumberOfAliveCells(gameOfLife.GetGrid()));
 }
 
-TEST(GameOfLifeTests, SetCellsToAlive_KeepsCellAliveIfAlreadyALive){
-    ASSERT_TRUE(false) << "Not implemented";
+TEST(GameOfLifeTests, SetCellsToAlive_KeepsCellAliveIfAlreadyAlive){
+    
+    GameOfLife gameOfLife(1, 1);
+
+    // Set the only cell of the grid to be alive
+    gameOfLife.SetCellsToAlive(vector{pair(0, 0)});
+    EXPECT_EQ(1, getTotalNumberOfAliveCells(gameOfLife.GetGrid()));
+
+    // Set the same cell to be alive and make sure the cell stays alive
+    gameOfLife.SetCellsToAlive(vector{pair(0, 0)});
+    EXPECT_EQ(1, getTotalNumberOfAliveCells(gameOfLife.GetGrid()));
 }
 
 TEST(GameOfLifeTests, Evolve_IndicatesChangeOfStateGivenValidAliveCells){
-    ASSERT_TRUE(false) << "Not implemented";
+    
+    GameOfLife gameOfLife(3, 3);
+
+    /**
+     * Set a 3 x 3 grid with a Blicker pattern:
+     *      + - + - + - +
+     *      |   |   |   |
+     *      + - + - + - +
+     *      | A | A | A |
+     *      + - + - + - +
+     *      |   |   |   |
+     *      + - + - + - +
+     * 
+     * Which will result in an oscillation between the starting 
+     * state and:
+     *      + - + - + - +
+     *      |   | A |   |
+     *      + - + - + - +
+     *      |   | A |   |
+     *      + - + - + - +
+     *      |   | A |   |
+     *      + - + - + - +
+     **/ 
+    gameOfLife.SetCellsToAlive(vector{pair(0, 1), pair(1, 1), pair(2, 1)});
+
+    // Make sure Evolve() returns true to indicate grid state has changed
+    // following the evolution
+    EXPECT_TRUE(gameOfLife.Evolve());
+}
+
+TEST(GameOfLifeTests, Evolve_IndicatesNoChangeOfStateIfAllCellsDead){
+    
+    GameOfLife gameOfLife(2, 2);
+    EXPECT_FALSE(gameOfLife.Evolve());
 }
 
 TEST(GameOfLifeTests, Evolve_IndicatesNoChangeOfStateIfCellsStagnated){
-    ASSERT_TRUE(false) << "Not implemented";
+    
+    GameOfLife gameOfLife(4, 4);
+
+    /**
+     * Set a 4 x 4 grid with a pattern:
+     *      + - + - + - + - +
+     *      |   |   |   |   |
+     *      + - + - + - + - +
+     *      |   | A | A |   |
+     *      + - + - + - + - +
+     *      |   | A | A |   |
+     *      + - + - + - + - +
+     *      |   |   |   |   |
+     *      + - + - + - + - +
+     * 
+     * Which is a stable still lifeform and should result in no state
+     * change following an evolution.
+     **/ 
+    gameOfLife.SetCellsToAlive(
+        vector{pair(1, 1), pair(2, 1), pair(1, 2), pair(2, 2)});
+    
+    EXPECT_FALSE(gameOfLife.Evolve());
 }
 
 TEST(GameOfLifeTests, GetCurrentEvolutionNumber_IfNoEvolutionsUndertaken){
-    ASSERT_TRUE(false) << "Not implemented";
+    
+    GameOfLife GameOfLife(1, 1);
+    EXPECT_EQ(0, GameOfLife.GetCurrentEvolutionNumber());
 }
 
-TEST(GameOfLifeTests, GetCurrentEvolutionNumber_AfterEvolvutionOccured){
-    ASSERT_TRUE(false) << "Not implemented";
+TEST(GameOfLifeTests, GetCurrentEvolutionNumber_AfterEvolutionsOccured){
+    
+    GameOfLife gameOfLife(3, 3);
+
+    // Using a Blinker oscillating pattern
+    gameOfLife.SetCellsToAlive(vector{pair(0, 1), pair(1, 1), pair(2, 1)});
+
+    // Evolve 5 times
+    for (int i = 0; i < 5; i++) gameOfLife.Evolve();
+
+    EXPECT_EQ(5, gameOfLife.GetCurrentEvolutionNumber());
 }
