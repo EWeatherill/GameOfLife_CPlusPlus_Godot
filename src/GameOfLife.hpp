@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <vector>
 
 /**
@@ -9,9 +10,8 @@
 class GameOfLife{
 
     private:
-        std::pair<int, int> grid_Size;
         std::vector<std::vector<bool>> grid;
-        std::vector<std::vector<bool>> temporary_Grid;
+        std::optional<std::vector<std::vector<bool>>> temporary_Grid;
         int number_Of_Evolutions_So_Far = 0;
 
         /**

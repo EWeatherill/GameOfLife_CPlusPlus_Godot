@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <stdexcept>
 #include <vector>
 
 #include "GameOfLife.hpp"
@@ -39,6 +40,48 @@ TEST(GameOfLifeTests, Constructor_BuildsEmptyGridOfCorrectSize){
     
     // Check all grid cells are set to "dead" (false)
     EXPECT_EQ(0, getTotalNumberOfAliveCells(grid));
+}
+
+TEST(GameOfLifeTests, Constructor_ThrowsWhenGridHeightZero){
+
+    int gridWidth = 7;
+    int gridHeight = 0;
+    try{
+
+        GameOfLife gameOfLife(gridWidth, gridHeight);
+
+    } catch (std::invalid_argument & ex){
+
+        EXPECT_EQ("You can't play Game of Life with a grid of " + 
+            std::to_string(gridWidth) + 
+            " width and " + 
+            std::to_string(gridHeight) + 
+            "height!", 
+            ex.what());
+    }  catch (...){
+        FAIL() << "The incorrect expection was thrown.";
+    }  
+}
+
+TEST(GameOfLifeTests, Constructor_ThrowsWhenGridWidthZero){
+
+    int gridWidth = 0;
+    int gridHeight = 1;
+    try{
+
+        GameOfLife gameOfLife(gridWidth, gridHeight);
+
+    } catch (std::invalid_argument & ex){
+
+        EXPECT_EQ("You can't play Game of Life with a grid of " + 
+            std::to_string(gridWidth) + 
+            " width and " + 
+            std::to_string(gridHeight) + 
+            "height!", 
+            ex.what());
+    }  catch (...){
+        FAIL() << "The incorrect expection was thrown.";
+    }  
 }
 
 TEST(GameOfLifeTests, SetCellsToAlive_SetsValidCells){
