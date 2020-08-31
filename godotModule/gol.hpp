@@ -28,6 +28,10 @@ class GOL : public reference {
 
         /**
          * Binding for GameOfLife SetCellsToAlive().
+         * 
+         * This expects an collection of value pairs (x coordinate, y 
+         * coordinate). If an entry contains more or less than 2 values,
+         * it will be ignored.
          **/
         void SetCellsToAlive(
             godot::Vector<godot::Vector<int>> const cellsCoordinates);
