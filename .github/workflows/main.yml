@@ -17,7 +17,7 @@ jobs:
     - name: unit-tests for GameOfLife C++
       run: build/test/GameOfLifeTests
 
-jobs:
+
   build_godot_release_job_WIP:
     runs-on: ubuntu-latest
 
