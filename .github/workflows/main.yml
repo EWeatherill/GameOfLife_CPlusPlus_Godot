@@ -25,5 +25,5 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v1
     - name: Checkout submodules (eg. godot)
-      uses: git submodules update --init --recursive
+      run: git submodules update --init --recursive
       
